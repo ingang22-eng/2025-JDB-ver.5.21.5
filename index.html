@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 잠대버 회장배-The Last War</title>
+    
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter, Noto Sans KR) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Noto Sans KR 폰트를 기본으로 사용 */
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            /* 요청하신 새 배경 이미지 URL로 변경 */
+            background-image: url('https://sollago.co.kr/UserFile/Board/PGALLERY/upload/PGALLERY_0_83_0_0_1_20169319.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* 이미지 로딩 실패 시를 대비한 어두운 녹색 배경 */
+            background-color: #166534; 
+        }
+        /* 콘텐츠를 담을 페이지 카드 스타일 (반투명) */
+        .page-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem; /* 24px */
+        }
+        /* 메뉴 버튼 기본 스타일 (파스텔 톤) */
+        .menu-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+            font-size: 1.125rem; /* 18px */
+            font-weight: 700;
+            /* 텍스트 색상을 어둡게 하여 가독성 확보 */
+            color: #333;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            padding: 1rem;
+            line-height: 1.4; /* 줄 간격 조절 */
+        }
+        /* 3열 그리드일 때 버튼 높이를 90px로 살짝 줄여서 한 화면에 잘 보이도록 함 */
+        @media (min-width: 640px) { /* sm: breakpoint */
+            .grid-cols-3 .menu-button {
+                height: 90px;
+                font-size: 1rem; /* 16px */
+            }
+        }
+        .menu-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 표 스타일 */
+        .team-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .team-table th, .team-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .team-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #334155;
+            width: 2.5rem; /* '가', '나', '다' 칸 너비 */
+        }
+        .team-table td {
+            background-color: #ffffff;
+            color: #475569;
+        }
+
+        /* 협찬품 목록을 위한 커스텀 스타일 */
+        .sponsor-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 1rem;
+            background-color: rgba(255, 255, 255, 0.8); /* 20% 투명 (불투명 80%) */
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s ease;
+        }
+        .sponsor-item:hover {
+            background-color: rgba(240, 240, 240, 0.85); /* 호버 시 약간 밝게 */
+        }
+        .sponsor-item .number {
+            font-weight: 700;
+            color: #10B981; /* 에메랄드 그린 */
+            margin-right: 0.75rem;
+            flex-shrink: 0; /* 숫자가 줄어들지 않도록 */
+            min-width: 1.5rem; /* 최소 너비 지정 */
+            text-align: right;
+        }
+        .sponsor-item .content {
+            flex-grow: 1;
+            color: #333;
+        }
+        .sponsor-item .name {
+            font-weight: 700;
+            color: #1F2937; /* 다크 그레이 */
+        }
+        .sponsor-item .description {
+            font-size: 0.95rem;
+            color: #4B5563; /* 미디엄 그레이 */
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<!-- bg-gray-100 클래스 제거 (배경 이미지 충돌 해결) --><body>
+
+    <!-- 메인 컨테이너 --><div class="min-h-screen w-full flex items-center justify-center p-4 bg-black/30">
+
+        <div class="max-w-2xl w-full">
+
+            <!-- ====================================================== --><!-- 1. 홈 메뉴 페이지 (기본) --><!-- ====================================================== --><div id="home-menu" class="w-full">
+                
+                <div class="page-card text-center">
+                    <h1 class="text-3xl sm:text-4xl font-black text-green-800 mb-2">
+                        2025 잠대버 회장배-The Last War
+                    </h1>
+                    <h2 class="text-xl sm:text-2xl font-semibold text-green-600 mb-8">
+                        2025.11.14 솔라고CC
+                    </h2>
+
+                    <!-- 3x3 메뉴 그리드 --><div class="grid grid-cols-3 gap-4">
+                        
+                        <!-- 1. 회장배 일정 --><button onclick="showPage('page-schedule')" class="menu-button bg-teal-200 hover:bg-teal-300 text-teal-800">
+                            회장배 일정
+                        </button>
+                        
+                        <!-- 2. 차량 탑승 --><button onclick="showPage('page-bus')" class="menu-button bg-sky-200 hover:bg-sky-300 text-sky-800">
+                            차량 탑승
+                        </button>
+
+                        <!-- 3. 스타크래프트 (링크로 변경) --><a href="https://naver.me/FbqZWfTf" target="_blank" rel="noopener noreferrer" class="menu-button bg-rose-200 hover:bg-rose-300 text-rose-800">
+                            Star Craft <br> Dady War
+                        </a>
+
+                        <!-- 4. 라이브 스코어 --><button onclick="showPage('page-score')" class="menu-button bg-violet-200 hover:bg-violet-300 text-violet-800">
+                            라이브 스코어
+                        </button>
+
+                        <!-- 5. 조편성 오전 --><button onclick="showPage('page-morning')" class="menu-button bg-emerald-200 hover:bg-emerald-300 text-emerald-800">
+                            조편성 오전
+                        </button>
+
+                        <!-- 6. 조편성 오후 --><button onclick="showPage('page-afternoon')" class="menu-button bg-amber-200 hover:bg-amber-300 text-amber-800">
+                            조편성 오후
+                        </button>
+
+                        <!-- 7. 운영진 연락처 --><button onclick="showPage('page-contacts')" class="menu-button bg-lime-200 hover:bg-lime-300 text-lime-800">
+                            운영진 연락처 📞
+                        </button>
+
+                        <!-- 8. 협찬품 소개 --><button onclick="showPage('page-sponsors')" class="menu-button bg-orange-200 hover:bg-orange-300 text-orange-800">
+                            협찬품 소개
+                        </button>
+
+                        <!-- 9. 솔라고CC 코스 소개 (링크) --><a href="https://smartscore.kr/short/?1719b7dd2" target="_blank" rel="noopener noreferrer" class="menu-button bg-pink-200 hover:bg-pink-300 text-pink-800">
+                            솔라고CC 코스 소개
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====================================================== --><!-- 2. 회장배 일정 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-schedule" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">회장배 일정</h2>
+                
+                <div class="relative pl-8 space-y-6 border-l-2 border-gray-300">
+                    
+                    <!-- 1. 출발 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">1</span>
+                        <h3 class="font-semibold text-lg text-gray-800">오전 4:00 차량 탑승 장소 집합</h3>
+                    </div>
+
+                    <!-- 2. 아침 식사 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">2</span>
+                        <h3 class="font-semibold text-lg text-gray-800">솔라고CC 도착 후 아침 식사</h3>
+                    </div>
+
+                    <!-- 3. 오전 라운딩 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">3</span>
+                        <h3 class="font-semibold text-lg text-gray-800">오전 18홀 샷건 방식 진행</h3>
+                        <p class="text-gray-600">인코스 아웃코스 각각 7개조</p>
+                    </div>
+
+                    <!-- 4. 점심 식사 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">4</span>
+                        <h3 class="font-semibold text-lg text-gray-800">점심 식사</h3>
+                        <div class="mt-2 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg">
+                            <p class="font-semibold">주의!!! 오후 라운딩 [같은 조] 끼리 식사 필수</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. 오후 라운딩 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">5</span>
+                        <h3 class="font-semibold text-lg text-gray-800">오후 18홀 샷건 방식 진행</h3>
+                        <p class="text-gray-600">인코스 아웃코스 각각 7개조</p>
+                    </div>
+
+                    <!-- 6. 파티 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">6</span>
+                        <h3 class="font-semibold text-lg text-gray-800">라운딩 종료 후 파티</h3>
+                        <p class="text-gray-600">씻고 짐 챙겨서 모입니다.</p>
+                        <div class="mt-2 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg">
+                            <p class="font-semibold">주의!! 1,2호차 담당자들은 각 차량 캐디백 차량에 실어두고 파티장으로 ❤️</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. 귀가 --><div class="relative">
+                        <span class="absolute -left-11 top-1 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white font-bold">7</span>
+                        <h3 class="font-semibold text-lg text-gray-800">파티 종료 후 집으로</h3>
+                        <p class="text-gray-600">출발 예상시간 추후공지</p>
+                    </div>
+
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 3. 차량 탑승 장소 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-bus" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">차량 탑승</h2>
+                
+                <div class="space-y-6 text-gray-700">
+                    <!-- 1호차 --><div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-3 border-b-2 border-blue-200 pb-2">
+                            ① 1호차 동/서
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="font-semibold text-lg">04:00 동문 (10명)</span><br>
+                                <span class="text-sm font-semibold text-gray-600">담당: 권순향, 권은구, 홍제민</span><br>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    김서암, 박재찬, 조혁진, 김범기, 도정욱, 신요한, 반세현
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-lg">04:10 서문 (14명)</span><br>
+                                <span class="text-sm font-semibold text-gray-600">담당: 차병건, 오원석, 홍진우</span><br>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    공성배, 김정호, 김주환, 배성민, 백원일, 백찬기, 성현주, 안성훈, 전슬기, 김병학, 정준희
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2호차 --><div>
+                        <h3 class="text-xl font-semibold text-green-700 mb-3 border-b-2 border-green-200 pb-2">
+                            ② 2호차 남/북
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="font-semibold text-lg">04:00 144동 (8명)</span><br>
+                                <span class="text-sm font-semibold text-gray-600">담당: 이서콩, 유규현, 김지효</span><br>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    심정욱, 김광수, 김진곤, 이원균, 손원익
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-lg">04:05 롯데슈퍼 (18명)</span><br>
+                                <span class="text-sm font-semibold text-gray-600">담당: 한규봉, 송민욱, 김재하, 이경원</span><br>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    오동학, 황재민, 공준하, 김경호, 김남진, 김지훈, 김현도, 나종운, 박내춘, 손재돈, 안갑수, 양해권, 이준석, 장선호
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 주의사항 --><div class="mt-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg">
+                    <p class="font-semibold">
+                        주의!!! 각 담당자는 탑승 5분 전까지 미 도착자 파악 후 전화, 호차별 인원 파악
+                    </p>
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 4. 라이브 스코어 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-score" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">라이브 스코어</h2>
+                
+                <div class="text-center text-gray-600 p-8 bg-gray-50 rounded-lg min-h-[200px] flex items-center justify-center">
+                    <p>라이브 스코어 URL이 준비되는 대로 여기에 연결됩니다.</p>
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 5. 조편성 오전 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-morning" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">조편성 (오전)</h2>
+                
+                <div class="space-y-6">
+                    <!-- 오전 OUT --><div>
+                        <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b-2 border-emerald-200 pb-2">오전 OUT</h3>
+                        <table class="team-table">
+                            <tbody>
+                                <tr><th>가</th><td>김광수, 김경호, 안갑수, 배성민</td></tr>
+                                <tr><th>나</th><td>김남진, 김주환, 김지훈</td></tr>
+                                <tr><th>다</th><td>권순향, 백원일, 오동학, 도정욱</td></tr>
+                                <tr><th>라</th><td>유규현, 안성훈, 홍진우</td></tr>
+                                <tr><th>마</th><td>백찬기, 김병학, 김정호, 손원익</td></tr>
+                                <tr><th>바</th><td>차병건, 공준하, 조혁진</td></tr>
+                                <tr><th>사</th><td>손재돈, 홍제민, 이준석, 김진곤</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 오전 IN --><div>
+                        <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b-2 border-emerald-200 pb-2">오전 IN</h3>
+                        <table class="team-table">
+                            <tbody>
+                                <tr><th>아</th><td>김범기, 이홍석, 반세현, 성현주</td></tr>
+                                <tr><th>자</th><td>한규봉, 신요한, 김서암</td></tr>
+                                <tr><th>차</th><td>박내춘, 나종운, 송민욱, 김지효</td></tr>
+                                <tr><th>카</th><td>김재하, 권은구, 심정욱</td></tr>
+                                <tr><th>타</th><td>박재찬, 장선호, 전슬기, 김현도</td></tr>
+                                <tr><th>파</th><td>이경원, 이원균, 황재민</td></tr>
+                                <tr><th>하</th><td>양해권, 공성배, 오원석, 정준희</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 6. 조편성 오후 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-afternoon" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">조편성 (오후)</h2>
+                
+                <div class="space-y-6">
+                    <!-- 오후 OUT --><div>
+                        <h3 class="text-xl font-semibold text-amber-700 mb-3 border-b-2 border-amber-200 pb-2">오후 OUT</h3>
+                        <table class="team-table">
+                            <tbody>
+                                <tr><th>가</th><td>안성훈, 김재하, 오원석, 김주환</td></tr>
+                                <tr><th>나</th><td>이홍석, 배성민, 김진곤</td></tr>
+                                <tr><th>다</th><td>김지효, 유규현, 차병건, 황재민</td></tr>
+                                <tr><th>라</th><td>홍제민, 박내춘, 권순향</td></tr>
+                                <tr><th>마</th><td>홍진우, 박재찬, 권은구, 신요한</td></tr>
+                                <tr><th>바</th><td>송민욱, 손재돈, 전슬기</td></tr>
+                                <tr><th>사</th><td>나종운, 김남진, 김정호, 정준희</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 오후 IN --><div>
+                        <h3 class="text-xl font-semibold text-amber-700 mb-3 border-b-2 border-amber-200 pb-2">오후 IN</h3>
+                        <table class="team-table">
+                            <tbody>
+                                <tr><th>아</th><td>공준하, 김병학, 공성배, 이준석</td></tr>
+                                <tr><th>자</th><td>백원일, 안갑수, 김현도</td></tr>
+                                <tr><th>차</th><td>김경호, 한규봉, 장선호, 김범기</td></tr>
+                                <tr><th>카</th><td>도정욱, 이경원, 김광수</td></tr>
+                                <tr><th>타</th><td>조혁진, 성현주, 오동학, 양해권</td></tr>
+                                <tr><th>파</th><td>이원균, 손원익, 반세현</td></tr>
+                                <tr><th>하</th><td>김지훈, 백찬기, 김서암, 심정욱</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 7. 운영진 연락처 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-contacts" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">운영진 연락처 📞</h2>
+                
+                <div class="space-y-4">
+                    
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                        <span class="text-lg font-semibold text-gray-700">양회장</span>
+                        <a href="tel:010-8551-4563" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            010-8551-4563
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                        <span class="text-lg font-semibold text-gray-700">효운장</span>
+                        <a href="tel:010-8250-7558" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            010-8250-7558
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                        <span class="text-lg font-semibold text-gray-700">차운장</span>
+                        <a href="tel:010-4491-5246" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            010-4491-5246
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                        <span class="text-lg font-semibold text-gray-700">규운장</span>
+                        <a href="tel:010-5149-3388" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            010-5149-3388
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                        <span class="text-lg font-semibold text-gray-700">서콩총</span>
+                        <a href="tel:010-9508-1176" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            010-9508-1176
+                        </a>
+                    </div>
+
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+
+            <!-- ====================================================== --><!-- 8. 협찬품 소개 페이지 (숨겨짐) --><!-- ====================================================== --><div id="page-sponsors" class="page-card w-full hidden page-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">협찬품 소개</h2>
+                
+                <!-- 스크롤 가능한 콘텐츠 영역 --><div class="max-h-[60vh] overflow-y-auto p-2"> <!-- 패딩 조정 --><!-- 협찬품 항목들을 sponsor-item 클래스를 사용하여 스타일링 --><div class="sponsor-item">
+                        <span class="number">1.</span>
+                        <div class="content">
+                            <span class="name">김경호</span> - <span class="description">파우치 3개</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">2.</span>
+                        <div class="content">
+                            <span class="name">권순향</span> - <span class="description">순양주 1세트 (재벌집 막내아들 에디션)</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">3.</span>
+                        <div class="content">
+                            <span class="name">윤치완</span> - <span class="description">골프모자 3개</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">4.</span>
+                        <div class="content">
+                            <span class="name">양해권</span> - <span class="description">Qi35 MAX 드라이버</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">5.</span>
+                        <div class="content">
+                            <span class="name">송민욱</span> - <span class="description">공주알밤 4kg 직접 현관문 배달</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">6.</span>
+                        <div class="content">
+                            <span class="name">강태원</span> - <span class="description">버버리 볼캡 (모자) 배달안됨!</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">7.</span>
+                        <div class="content">
+                            <span class="name">백원일</span> - <span class="description">엄마들이 싫어하는 자질구레 완구거리 장난감일체 / 60도 웻지</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">8.</span>
+                        <div class="content">
+                            <span class="name">이원균</span> - <span class="description">스투시 크로스백</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">9.</span>
+                        <div class="content">
+                            <span class="name">이준석</span> - <span class="description">브리지스톤 슈퍼 스트레이트 테크놀로지 3피스 골프공</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">10.</span>
+                        <div class="content">
+                            <span class="name">양해권</span> - <span class="description">루벨 4종세트 3개</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">11.</span>
+                        <div class="content">
+                            <span class="name">오상우</span> - <span class="description">LUBELLE 클린 & 부스트 4종 세트 버블클렌징 클렌징밀크 클렌징패드 토너패드 수분 진정 세트 데일리 클렌징세트 3개</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">12.</span>
+                        <div class="content">
+                            <span class="name">정현수</span> - <span class="description">Heb 아르기닌 에너지샷6000 30포 5세트</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">13.</span>
+                        <div class="content">
+                            <span class="name">김범기</span> - <span class="description">알로에젤(골프라운딩후 피부진정효과) 참여인원 전부 + 조니워커 블루 1병</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">14.</span>
+                        <div class="content">
+                            <span class="name">구상진</span> - <span class="description">경옥고 4박스</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">15.</span>
+                        <div class="content">
+                            <span class="name">안성훈</span> - <span class="description">남자한테 참 좋은데 설명할 방법이 없는 그것 4곽</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">16.</span>
+                        <div class="content">
+                            <span class="name">도정욱</span> - <span class="description">캐나다 록키산맥 빙하꿀 1kg x 3ea</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">17.</span>
+                        <div class="content">
+                            <span class="name">김남진</span> - <span class="description">레드와인 1병</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">18.</span>
+                        <div class="content">
+                            <span class="name">김광수</span> - <span class="description">발렌타인 30년</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">19.</span>
+                        <div class="content">
+                            <span class="name">나종운</span> - <span class="description">여명808</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">20.</span>
+                        <div class="content">
+                            <span class="name">김지효</span> - <span class="description">닷사이 조던 that병</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">21.</span>
+                        <div class="content">
+                            <span class="name">홍제민</span> - <span class="description">백화점상품권 15만</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">22.</span>
+                        <div class="content">
+                            <span class="name">전슬기</span> - <span class="description">골프파우치</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">23.</span>
+                        <div class="content">
+                            <span class="name">김주환</span> - <span class="description">레드와인 1병, 녹용 한박스</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">24.</span>
+                        <div class="content">
+                            <span class="name">김지훈</span> - <span class="description">글렌모렌지 1병</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">25.</span>
+                        <div class="content">
+                            <span class="name">공준하</span> - <span class="description">워터픽 1개</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">26.</span>
+                        <div class="content">
+                            <span class="name">박내춘</span> - <span class="description">sk 5 상품권 ×2</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">27.</span>
+                        <div class="content">
+                            <span class="name">김서암</span> - <span class="description">레드와인 1병</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">28.</span>
+                        <div class="content">
+                            <span class="name">오원석</span> - <span class="description">타이틀리스트 6구*2 , 신세계상품권 5만원</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">29.</span>
+                        <div class="content">
+                            <span class="name">손재돈</span> - <span class="description">텔메TP5 메리크리스마스 1다즌</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">30.</span>
+                        <div class="content">
+                            <span class="name">김재하</span> - <span class="description">현대백화점 상품권 5 x 2</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">31.</span>
+                        <div class="content">
+                            <span class="name">차병건</span> - <span class="description">pxg 우레탄 골프공 1다스, 타이틀 9구 1박스</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">32.</span>
+                        <div class="content">
+                            <span class="name">백찬기</span> - <span class="description">김재희 싸인 핑모자, 핑모자</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <span class="number">33.</span>
+                        <div class="content">
+                            <span class="name">김정호</span> - <span class="description">타이틀 모자 & 미즈노 벨트</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="goHome()" class="mt-8 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    처음으로
+                </button>
+            </div>
+            
+            <!-- ====================================================== --><!-- 9. Star Craft 페이지 (이제 사용되지 않으므로 삭제) --><!-- ====================================================== --><!-- <div id="page-starcraft" class="page-card w-full hidden page-content"> ... </div> --></div>
+    </div>
+
+    <!-- ====================================================== --><!-- JavaScript (페이지 전환 로직) --><!-- ====================================================== --><script>
+        // 모든 페이지 콘텐츠와 홈 메뉴를 선택합니다.
+        const pages = document.querySelectorAll('.page-content');
+        const homeMenu = document.getElementById('home-menu');
+
+        /**
+         * 특정 ID의 페이지만 보여주는 함수
+         * @param {string} pageId - 보여줄 페이지의 ID
+         */
+        function showPage(pageId) {
+            // 1. 홈 메뉴를 숨깁니다.
+            homeMenu.classList.add('hidden');
+            
+            // 2. 모든 페이지를 일단 숨깁니다.
+            pages.forEach(function(page) {
+                page.classList.add('hidden');
+            });
+
+            // 3. 요청된 ID의 페이지만 보여줍니다.
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+        }
+
+        /**
+         * 홈 메뉴로 돌아가는 함수
+         */
+        function goHome() {
+            // 1. 모든 페이지를 숨깁니다.
+            pages.forEach(function(page) {
+                page.classList.add('hidden');
+            });
+
+            // 2. 홈 메뉴를 다시 보여줍니다.
+            homeMenu.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
